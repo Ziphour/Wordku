@@ -8,6 +8,14 @@ function App() {
     Letter: "",
     Coordinates: [],
   });
+  const winCondtions = 0;
+  const checkWin = () => {
+    return;
+  };
+  const colourChange = () => {
+    // adds/changes colour styles, by adding class that has animation.
+    // Don't know how to change it otherwise? Maybe adding a seperate colour will do so
+  };
 
   useEffect(() => {
     initiateGameboard();
