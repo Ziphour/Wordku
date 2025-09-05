@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [gameBoard, setGameBoard] = useState([]);
+  const [gameBoard, setGameBoard] = useState([
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ]);
   const [loaded, setLoaded] = useState(false);
   const [letter, setLetter] = useState({
     Letter: "",
@@ -24,15 +28,38 @@ function App() {
   }, []);
 
   const initiateGameboard = () => {
+    const board = [];
     for (let i = 0; i < 3; i++) {
+      const row = [];
       for (let j = 0; j < 3; j++) {
-        setLetter((prev) => ({ ...prev, Coordinates: [i, j] }));
-        setGameBoard((previousBoard) => {
-          [...previousBoard, [letter]];
-        });
+        const letter = {
+          Letter: "",
+          Coordinates: [null, null],
+        };
+        letter.Coordinates = [i, j];
+        row.push(letter);
       }
+      board.push(row);
     }
+    setGameBoard(board);
+    console.log(gameBoard);
   };
+
+  //  for (let i = 0; i < 3; i++) {
+  //    for (let j = 0; j < 3; j++) {
+  //      setLetter((prev) => ({ ...prev, Coordinates: [i, j] }));
+  //      setGameBoard(
+  //        gameBoard.map((rowValue, rowi) => {
+  //          rowi === i
+  //            ? rowValue.map((colValue, coli) => {
+  //                coli === j ? letter : null;
+  //              })
+  //            : null;
+  //        })
+  //      );
+  //    }
+  //  }
+  //  console.log(gameBoard);
 
   const setLetterPanel = (letterPanel) => {
     // Find co-ordinates
@@ -58,6 +85,7 @@ function App() {
 
   return (
     <>
+      <div>test</div>
       {/* For loop with co-ords in there */}
       {loaded &&
         gameBoard.map((panel) => {
