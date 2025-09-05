@@ -27,12 +27,13 @@ function App() {
 
   const findLetter = () => {
     // html coordinates gotten
-    return gameBoard[(i, j)].Letter;
+    return gameBoard[(i, j)];
   };
 
   const setLetterPanel = () => {
     // Find co-ordinates
     // How do we know the INPUT letter
+    // *
     const letterPanel = findLetter();
     const i = letterPanel.coordinates[0];
     const j = letterPanel.coordinates[1];
