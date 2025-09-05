@@ -27,22 +27,32 @@ function App() {
     setLoaded(true);
   }, []);
 
+  useEffect(() => {
+    console.log(loaded);
+  }, [loaded]);
+
+  // useEffect(() => {
+  //   console.log(gameBoard);
+  // }, [gameBoard]);
+
   const initiateGameboard = () => {
     const board = [];
+    let k = 1;
     for (let i = 0; i < 3; i++) {
       const row = [];
       for (let j = 0; j < 3; j++) {
         const letter = {
-          Letter: "",
+          Letter: "S",
           Coordinates: [null, null],
+          id: k,
         };
         letter.Coordinates = [i, j];
         row.push(letter);
+        k++;
       }
       board.push(row);
     }
     setGameBoard(board);
-    console.log(gameBoard);
   };
 
   //  for (let i = 0; i < 3; i++) {
@@ -85,22 +95,25 @@ function App() {
 
   return (
     <>
-      <div>test</div>
+      <div className="">
+        {loaded &&
+          gameBoard.map((row) =>
+            row.map((panel) => (
+              <div key={panel.id}>
+                {/* <input
+                type="text"
+                name=""
+                id=""
+                maxLength={1}
+                value={panel.Letter}
+                onChange={(e) => setLetterPanel(e.target.value)}
+              /> */}
+                {panel.Letter}
+              </div>
+            ))
+          )}
+      </div>
       {/* For loop with co-ords in there */}
-      {loaded &&
-        gameBoard.map((panel) => {
-          <div key={panel.coordinates} Coordinates={panel.coordinates}>
-            <input
-              type="text"
-              name=""
-              id=""
-              maxLength={1}
-              value={panel.Letter}
-              onChange={(e) => setLetterPanel(e.target.value)}
-            />
-            {panel.letter}
-          </div>;
-        })}
     </>
   );
 }
