@@ -27,8 +27,8 @@ function App() {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         setLetter((prev) => ({ ...prev, Coordinates: [i, j] }));
-        setGameBoard((prev) => {
-          [...prev, [letter]];
+        setGameBoard((previousBoard) => {
+          [...previousBoard, [letter]];
         });
       }
     }
