@@ -3,22 +3,24 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [gameBoard, setGameBoard] = useState();
+  const [gameBoard, setGameBoard] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   const [letter, setLetter] = useState({
     Letter: "",
     Coordinates: [],
   });
-  const winCondtions = 0;
-  const checkWin = () => {
-    return;
-  };
-  const colourChange = () => {
-    // adds/changes colour styles, by adding class that has animation.
-    // Don't know how to change it otherwise? Maybe adding a seperate colour will do so
-  };
+  // const winCondtions = 0;
+  // const checkWin = () => {
+  //   return;
+  // };
+  // const colourChange = () => {
+  //   // adds/changes colour styles, by adding class that has animation.
+  //   // Don't know how to change it otherwise? Maybe adding a seperate colour will do so
+  // };
 
   useEffect(() => {
     initiateGameboard();
+    setLoaded(true);
   }, []);
 
   const initiateGameboard = () => {
@@ -30,12 +32,6 @@ function App() {
         });
       }
     }
-  };
-
-  const findLetter = () => {
-    // html coordinates gotten
-
-    return gameBoard[(i, j)];
   };
 
   const setLetterPanel = (letterPanel) => {
@@ -63,19 +59,20 @@ function App() {
   return (
     <>
       {/* For loop with co-ords in there */}
-      {gameBoard.map((panel) => {
-        <div key={panel.coordinates} Coordinates={panel.coordinates}>
-          <input
-            type="text"
-            name=""
-            id=""
-            maxLength={1}
-            value={panel.Letter}
-            onChange={(e) => setLetterPanel(e.target.value)}
-          />
-          {panel.letter}
-        </div>;
-      })}
+      {loaded &&
+        gameBoard.map((panel) => {
+          <div key={panel.coordinates} Coordinates={panel.coordinates}>
+            <input
+              type="text"
+              name=""
+              id=""
+              maxLength={1}
+              value={panel.Letter}
+              onChange={(e) => setLetterPanel(e.target.value)}
+            />
+            {panel.letter}
+          </div>;
+        })}
     </>
   );
 }
