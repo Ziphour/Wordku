@@ -32,11 +32,13 @@ function App() {
 
   const setLetterPanel = () => {
     // Find co-ordinates
-    // How does the letter clicked relate to, ah, can use co-ord's
+    // How do we know the INPUT letter
     const letterPanel = findLetter();
-
     const i = letterPanel.coordinates[0];
     const j = letterPanel.coordinates[1];
+    // !
+    const letterFromPanel = Letter.pannel;
+    setLetter({ Letter: letterFromPanel, Coordinates: [i, j] });
 
     const letter = letterPanel.Letter;
     // Inputs letter into J and I
