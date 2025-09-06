@@ -24,10 +24,6 @@ function App() {
     setLoaded(true);
   }, []);
 
-  useEffect(() => {
-    console.log(gameBoard);
-  }, [gameBoard]);
-
   const initiateGameboard = () => {
     const board = [];
     let k = 1;
