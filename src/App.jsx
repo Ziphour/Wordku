@@ -44,7 +44,7 @@ function App() {
     setGameBoard(board);
   };
 
-  const setLetterPanel = (event, coordinates, id) => {
+  const updateLetterPanel = (event, coordinates, id) => {
     //! Find co-ordinates
     // How do we know the INPUT letter
     // * You don't need the old one, you can just overwrite with the new one
@@ -83,7 +83,7 @@ function App() {
                   placeholder={panel.Letter}
                   value={panel.Letter}
                   onChange={(event) => {
-                    setLetterPanel(event, panel.Coordinates, panel.id);
+                    updateLetterPanel(event, panel.Coordinates, panel.id);
                   }}
                 />
                 {panel.Letter}
