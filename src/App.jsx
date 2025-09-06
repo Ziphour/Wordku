@@ -97,3 +97,5 @@ function App() {
 }
 
 export default App;
+
+// how does state changes work
