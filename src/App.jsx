@@ -9,10 +9,7 @@ function App() {
     [null, null, null],
   ]);
   const [loaded, setLoaded] = useState(false);
-  const [letter, setLetter] = useState({
-    Letter: "",
-    Coordinates: [],
-  });
+
   // const winCondtions = 0;
   // const checkWin = () => {
   //   return;
@@ -28,12 +25,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(loaded);
-  }, [loaded]);
-
-  // useEffect(() => {
-  //   console.log(gameBoard);
-  // }, [gameBoard]);
+    console.log(gameBoard);
+  }, [gameBoard]);
 
   const initiateGameboard = () => {
     const board = [];
@@ -55,59 +48,48 @@ function App() {
     setGameBoard(board);
   };
 
-  //  for (let i = 0; i < 3; i++) {
-  //    for (let j = 0; j < 3; j++) {
-  //      setLetter((prev) => ({ ...prev, Coordinates: [i, j] }));
-  //      setGameBoard(
-  //        gameBoard.map((rowValue, rowi) => {
-  //          rowi === i
-  //            ? rowValue.map((colValue, coli) => {
-  //                coli === j ? letter : null;
-  //              })
-  //            : null;
-  //        })
-  //      );
-  //    }
-  //  }
-  //  console.log(gameBoard);
-
-  const setLetterPanel = (letterPanel) => {
-    // Find co-ordinates
+  const setLetterPanel = (event, coordinates, id) => {
+    //! Find co-ordinates
     // How do we know the INPUT letter
     // * You don't need the old one, you can just overwrite with the new one
-    const i = letterPanel.coordinates[0];
-    const j = letterPanel.coordinates[1];
-    const letterFromPanel = letterPanel.Letter;
-    setLetter({ Letter: letterFromPanel, Coordinates: [i, j] });
+    const letter = event.target.value;
+    const [i, j] = coordinates;
 
-    const letter = letterPanel.Letter;
+    const letterPanel = {
+      Letter: letter,
+      Coordinates: [i, j],
+      id: id,
+    };
+
     // Inputs letter into J and I
     //? Will this not insert instead of changing it
-    setGameBoard((gameBoard) => {
-      const begginingOfBoard = gameBoard.slice(i, j + 1);
-      const endOfBoard = gameBoard.slice(j)(
-        ...begginingOfBoard,
-        [letter],
-        ...endOfBoard
-      );
+
+    setGameBoard((previousGameboard) => {
+      const newGameBoard = previousGameboard.map((row) => row);
+      newGameBoard[i][j] = letterPanel;
+      return newGameBoard;
     });
   };
 
   return (
     <>
-      <div className="">
+      <div className="grid grid-3 gap-10">
         {loaded &&
           gameBoard.map((row) =>
             row.map((panel) => (
               <div key={panel.id}>
-                {/* <input
-                type="text"
-                name=""
-                id=""
-                maxLength={1}
-                value={panel.Letter}
-                onChange={(e) => setLetterPanel(e.target.value)}
-              /> */}
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  minLength={0}
+                  maxLength={1}
+                  placeholder={panel.Letter}
+                  value={panel.Letter}
+                  onChange={(event) => {
+                    setLetterPanel(event, panel.Coordinates, panel.id);
+                  }}
+                />
                 {panel.Letter}
               </div>
             ))
