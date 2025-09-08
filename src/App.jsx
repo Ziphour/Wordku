@@ -26,7 +26,6 @@ function App() {
       { Letter: "", Coordinates: [2, 2], id: 8 },
     ],
   ]);
-  const winCondtions = [[], [], []];
 
   // const winCondtions = 0;
   // const checkWin = () => {
@@ -48,8 +47,27 @@ function App() {
   // Check letters in right place
 
   const checkWin = () => {
+    // loop that checks the sent loop
+    // compares each one, to the first one in its name (could compare each i = i (letting us index it first))
+    //
+
+    for (let i = 0; i < winCondtions.length; i++) {
+      for (let j = 0; j < winCondtions[i].length; j++) {
+        if (
+          winCondtions[i][j].Letter === gameBoard[i][j].Letter &&
+          winCondtions[i][j].Coordinates === gameBoard[i][j].Coordinates
+        );
+        {
+          // Send green code alert, change a code to that.
+          // Do i then block them from changing the letters after that? I think so.
+          // That would mean i'd need a word blocker function
+        }
+      }
+    }
     return;
   };
+
+  function wordblock() {}
 
   const initiateGameboard = () => {
     const board = [];
