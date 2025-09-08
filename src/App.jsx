@@ -9,6 +9,24 @@ function App() {
     [null, null, null],
   ]);
   const [loaded, setLoaded] = useState(false);
+  const [winCondtions, setWinConditions] = useState([
+    [
+      { Letter: "", Coordinates: [0, 0], id: 0 },
+      { Letter: "", Coordinates: [0, 1], id: 1 },
+      { Letter: "", Coordinates: [0, 2], id: 2 },
+    ],
+    [
+      { Letter: "", Coordinates: [1, 0], id: 3 },
+      { Letter: "", Coordinates: [1, 1], id: 4 },
+      { Letter: "", Coordinates: [1, 2], id: 5 },
+    ],
+    [
+      { Letter: "", Coordinates: [2, 0], id: 6 },
+      { Letter: "", Coordinates: [2, 1], id: 7 },
+      { Letter: "", Coordinates: [2, 2], id: 8 },
+    ],
+  ]);
+  const winCondtions = [[], [], []];
 
   // const winCondtions = 0;
   // const checkWin = () => {
@@ -24,6 +42,15 @@ function App() {
     setLoaded(true);
   }, []);
 
+  // function for enter button here
+
+  // Checks Letters in right place or words?
+  // Check letters in right place
+
+  const checkWin = () => {
+    return;
+  };
+
   const initiateGameboard = () => {
     const board = [];
     let k = 1;
@@ -31,7 +58,7 @@ function App() {
       const row = [];
       for (let j = 0; j < 3; j++) {
         const letter = {
-          Letter: "S",
+          Letter: "",
           Coordinates: [null, null],
           id: k,
         };
@@ -90,6 +117,11 @@ function App() {
               </div>
             ))
           )}
+        <button
+          onClick={() => {
+            checkWin;
+          }}
+        ></button>
       </div>
       {/* For loop with co-ords in there */}
     </>
