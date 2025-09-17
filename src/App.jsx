@@ -3,56 +3,62 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  const [win, setWin] = useState(false);
   const [gameBoard, setGameBoard] = useState([
     [null, null, null],
     [null, null, null],
     [null, null, null],
   ]);
   const [loaded, setLoaded] = useState(false);
+  // *setWinConditions needed in the future to automatically set new games. Backend produces codes, front end sends get request, get request responds back with a JSON, then setWin is activated based on that.
   const [winCondtions, setWinConditions] = useState([
     [
-      { Letter: "", Coordinates: [0, 0], id: 0, solved: false },
-      { Letter: "", Coordinates: [0, 1], id: 1, solved: false },
-      { Letter: "", Coordinates: [0, 2], id: 2, solved: false },
+      { Letter: "a", Coordinates: [0, 0], id: 0, solved: false },
+      { Letter: "i", Coordinates: [0, 1], id: 1, solved: false },
+      { Letter: "r", Coordinates: [0, 2], id: 2, solved: false },
     ],
     [
-      { Letter: "", Coordinates: [1, 0], id: 3, solved: false },
-      { Letter: "", Coordinates: [1, 1], id: 4, solved: false },
-      { Letter: "", Coordinates: [1, 2], id: 5, solved: false },
+      { Letter: "p", Coordinates: [1, 0], id: 3, solved: false },
+      { Letter: "o", Coordinates: [1, 1], id: 4, solved: false },
+      { Letter: "e", Coordinates: [1, 2], id: 5, solved: false },
     ],
     [
-      { Letter: "", Coordinates: [2, 0], id: 6, solved: false },
-      { Letter: "", Coordinates: [2, 1], id: 7, solved: false },
-      { Letter: "", Coordinates: [2, 2], id: 8, solved: false },
+      { Letter: "e", Coordinates: [2, 0], id: 6, solved: false },
+      { Letter: "n", Coordinates: [2, 1], id: 7, solved: false },
+      { Letter: "d", Coordinates: [2, 2], id: 8, solved: false },
     ],
   ]);
 
-  // const winCondtions = 0;
-  // const checkWin = () => {
-  //   return;
-  // };
-  // const colourChange = () => {
-  //   // adds/changes colour styles, by adding class that has animation.
-  //   // Don't know how to change it otherwise? Maybe adding a seperate colour will do so
-  // };
+  useEffect(() => {
+    if (win) {
+      alert(`You win!`);
+      throw new Error("Ends game");
+    }
+    // Ends game
+    // Shows Win message
+  }, [win]);
 
   useEffect(() => {
     initiateGameboard();
     setLoaded(true);
   }, []);
 
-  // function for enter button here
-
-  // Checks Letters in right place or words?
-  // Check letters in right place
-
-  // Checks win by running a loop and assigning all objects with a true boolean and then checks all for true
   const checkWin = () => {
+    winCheckLetters();
+    const wintest = winCondtions.map((row, largeIndex) => {
+      row.forEach((cell, index) => {
+        cell === gameBoard[largeIndex][index];
+      });
+    });
+    console.log(wintest);
+    // setWin(true);
+  };
+  // Check all, and use every, if one appears false-> return, if not the code will be killed and a congrats message will form.
+  const winCheckLetters = () => {
     for (let i = 0; i < winCondtions.length; i++) {
       // Matrix size can be changed in the future, so for loop is based on specific matrix i,j length
       for (let j = 0; j < winCondtions[i].length; j++) {
-        if (winCondtions[i][j].Letter === gameBoard[i][j].Letter);
-        {
+        if (winCondtions[i][j].Letter === gameBoard[i][j].Letter) {
           setGameBoard((previousGameboard) => {
             const newGameBoard = previousGameboard.map((row) => row);
             newGameBoard[i][j].solved = true;
@@ -61,8 +67,6 @@ function App() {
         }
       }
     }
-    // Check all, and use every, if one appears false-> return, if not the code will be killed and a congrats message will form.
-    if (true === winCondtions) return;
   };
 
   const initiateGameboard = () => {
@@ -112,12 +116,17 @@ function App() {
 
   return (
     <>
+      <p>oeeniprda</p>
       <div className="grid grid-3 gap-10">
         {loaded &&
           gameBoard.map((row) =>
             row.map((panel) => (
               //? Can put grid to overlap
               <div key={panel.id} className="Grid Grid-overlap">
+                {panel.solved && (
+                  <p style={{ color: "Green" }}>{panel.Letter}</p>
+                )}
+                {!panel.solved && <p>{panel.Letter}</p>}
                 {!panel.solved && (
                   <input
                     type="text"
@@ -132,14 +141,12 @@ function App() {
                     }}
                   />
                 )}
-                {panel.solved && <p style={{ color: "red" }}>{panel.Letter}</p>}
-                {!panel.solved && <p>{panel.Letter}</p>}
               </div>
             ))
           )}
         <button
           onClick={() => {
-            checkWin;
+            checkWin();
           }}
         ></button>
       </div>
