@@ -11,19 +11,19 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [winCondtions, setWinConditions] = useState([
     [
-      { Letter: "", Coordinates: [0, 0], id: 0 },
-      { Letter: "", Coordinates: [0, 1], id: 1 },
-      { Letter: "", Coordinates: [0, 2], id: 2 },
+      { Letter: "", Coordinates: [0, 0], id: 0, solved: false },
+      { Letter: "", Coordinates: [0, 1], id: 1, solved: false },
+      { Letter: "", Coordinates: [0, 2], id: 2, solved: false },
     ],
     [
-      { Letter: "", Coordinates: [1, 0], id: 3 },
-      { Letter: "", Coordinates: [1, 1], id: 4 },
-      { Letter: "", Coordinates: [1, 2], id: 5 },
+      { Letter: "", Coordinates: [1, 0], id: 3, solved: false },
+      { Letter: "", Coordinates: [1, 1], id: 4, solved: false },
+      { Letter: "", Coordinates: [1, 2], id: 5, solved: false },
     ],
     [
-      { Letter: "", Coordinates: [2, 0], id: 6 },
-      { Letter: "", Coordinates: [2, 1], id: 7 },
-      { Letter: "", Coordinates: [2, 2], id: 8 },
+      { Letter: "", Coordinates: [2, 0], id: 6, solved: false },
+      { Letter: "", Coordinates: [2, 1], id: 7, solved: false },
+      { Letter: "", Coordinates: [2, 2], id: 8, solved: false },
     ],
   ]);
 
@@ -47,27 +47,17 @@ function App() {
   // Check letters in right place
 
   const checkWin = () => {
-    // loop that checks the sent loop
-    // compares each one, to the first one in its name (could compare each i = i (letting us index it first))
-    //
-
     for (let i = 0; i < winCondtions.length; i++) {
+      // Matrix size can be changed in the future, so for loop is based on specific matrix i,j length
       for (let j = 0; j < winCondtions[i].length; j++) {
-        if (
-          winCondtions[i][j].Letter === gameBoard[i][j].Letter &&
-          winCondtions[i][j].Coordinates === gameBoard[i][j].Coordinates
-        );
+        if (winCondtions[i][j].Letter === gameBoard[i][j].Letter);
         {
           // Send green code alert, change a code to that.
-          // Do i then block them from changing the letters after that? I think so.
-          // That would mean i'd need a word blocker function
         }
       }
     }
     return;
   };
-
-  function wordblock() {}
 
   const initiateGameboard = () => {
     const board = [];
@@ -79,6 +69,7 @@ function App() {
           Letter: "",
           Coordinates: [null, null],
           id: k,
+          solved: false,
         };
         letter.Coordinates = [i, j];
         row.push(letter);
@@ -100,6 +91,7 @@ function App() {
       Letter: letter,
       Coordinates: [i, j],
       id: id,
+      solved: false,
     };
 
     // Inputs letter into J and I
@@ -118,20 +110,24 @@ function App() {
         {loaded &&
           gameBoard.map((row) =>
             row.map((panel) => (
-              <div key={panel.id}>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  minLength={0}
-                  maxLength={1}
-                  placeholder={panel.Letter}
-                  value={panel.Letter}
-                  onChange={(event) => {
-                    updateLetterPanel(event, panel.Coordinates, panel.id);
-                  }}
-                />
-                {panel.Letter}
+              //? Can put grid to overlap
+              <div key={panel.id} className="Grid Grid-overlap">
+                {!panel.solved && (
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    minLength={0}
+                    maxLength={1}
+                    placeholder={panel.Letter}
+                    value={panel.Letter}
+                    onChange={(event) => {
+                      updateLetterPanel(event, panel.Coordinates, panel.id);
+                    }}
+                  />
+                )}
+                {panel.solved && <p style={{ color: "red" }}>{panel.Letter}</p>}
+                {!panel.solved && <p>{panel.Letter}</p>}
               </div>
             ))
           )}
