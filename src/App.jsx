@@ -46,17 +46,23 @@ function App() {
   // Checks Letters in right place or words?
   // Check letters in right place
 
+  // Checks win by running a loop and assigning all objects with a true boolean and then checks all for true
   const checkWin = () => {
     for (let i = 0; i < winCondtions.length; i++) {
       // Matrix size can be changed in the future, so for loop is based on specific matrix i,j length
       for (let j = 0; j < winCondtions[i].length; j++) {
         if (winCondtions[i][j].Letter === gameBoard[i][j].Letter);
         {
-          // Send green code alert, change a code to that.
+          setGameBoard((previousGameboard) => {
+            const newGameBoard = previousGameboard.map((row) => row);
+            newGameBoard[i][j].solved = true;
+            return newGameBoard;
+          });
         }
       }
     }
-    return;
+    // Check all, and use every, if one appears false-> return, if not the code will be killed and a congrats message will form.
+    if (true === winCondtions) return;
   };
 
   const initiateGameboard = () => {
