@@ -45,13 +45,15 @@ function App() {
 
   const checkWin = () => {
     winCheckLetters();
-    const wintest = winCondtions.map((row, largeIndex) => {
-      row.forEach((cell, index) => {
-        cell === gameBoard[largeIndex][index];
+    const winTest = winCondtions.every((row, largeIndex) => {
+      return row.every((cell, index) => {
+        return cell.Letter === gameBoard[largeIndex][index].Letter;
       });
     });
-    console.log(wintest);
-    // setWin(true);
+    console.log(winTest);
+    if (winTest) {
+      setWin(true);
+    }
   };
   // Check all, and use every, if one appears false-> return, if not the code will be killed and a congrats message will form.
   const winCheckLetters = () => {
