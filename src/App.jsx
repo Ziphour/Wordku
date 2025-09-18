@@ -148,7 +148,9 @@ function App() {
           onClick={() => {
             checkWin();
           }}
-        ></button>
+        >
+          Submit Answer
+        </button>
       </div>
     </>
   );
@@ -157,3 +159,7 @@ function App() {
 export default App;
 
 // how does state changes work
+// Update to have layered input with Display images
+// Button centered,
+// Spread out letters
+// Animations?
