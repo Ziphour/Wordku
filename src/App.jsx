@@ -10,7 +10,10 @@ function App() {
     [null, null, null],
   ]);
   const [loaded, setLoaded] = useState(false);
-  // *setWinConditions needed in the future to automatically set new games. Backend produces codes, front end sends get request, get request responds back with a JSON, then setWin is activated based on that.
+  // setWinConditions needed in the future to automatically set new games.
+  //  Backend produces codes, front end sends get request, get request responds back with a JSON,
+  //  then setWin is activated based on that.
+  // Looks like this for now, but will be NULL in the future
   const [winCondtions, setWinConditions] = useState([
     [
       { Letter: "a", Coordinates: [0, 0], id: 0, solved: false },
@@ -30,12 +33,13 @@ function App() {
   ]);
 
   useEffect(() => {
+    // Used If statement as state is first updated at first render as false,
+    // Which would force the game to congrats and end at render/start
+    // hence we use an if statement with a boolean true to launch it after use.
     if (win) {
       alert(`You win!`);
       throw new Error("Ends game");
     }
-    // Ends game
-    // Shows Win message
   }, [win]);
 
   useEffect(() => {
@@ -47,18 +51,18 @@ function App() {
     winCheckLetters();
     const winTest = winCondtions.every((row, largeIndex) => {
       return row.every((cell, index) => {
-        return cell.Letter === gameBoard[largeIndex][index].Letter;
+        return gameBoard[largeIndex][index].Letter;
       });
     });
-    console.log(winTest);
     if (winTest) {
       setWin(true);
     }
   };
-  // Check all, and use every, if one appears false-> return, if not the code will be killed and a congrats message will form.
+
   const winCheckLetters = () => {
     for (let i = 0; i < winCondtions.length; i++) {
-      // Matrix size can be changed in the future, so for loop is based on specific matrix i,j length
+      // Matrix size can be changed in the future with this rendition,
+      // so for loop is based on specific matrix i,j length
       for (let j = 0; j < winCondtions[i].length; j++) {
         if (winCondtions[i][j].Letter === gameBoard[i][j].Letter) {
           setGameBoard((previousGameboard) => {
@@ -93,9 +97,6 @@ function App() {
   };
 
   const updateLetterPanel = (event, coordinates, id) => {
-    //! Find co-ordinates
-    // How do we know the INPUT letter
-    // * You don't need the old one, you can just overwrite with the new one
     const letter = event.target.value;
     const [i, j] = coordinates;
 
@@ -105,9 +106,6 @@ function App() {
       id: id,
       solved: false,
     };
-
-    // Inputs letter into J and I
-    //? Will this not insert instead of changing it
 
     setGameBoard((previousGameboard) => {
       const newGameBoard = previousGameboard.map((row) => row);
@@ -152,7 +150,6 @@ function App() {
           }}
         ></button>
       </div>
-      {/* For loop with co-ords in there */}
     </>
   );
 }
